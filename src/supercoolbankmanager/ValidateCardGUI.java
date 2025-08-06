@@ -17,11 +17,18 @@ public class ValidateCardGUI extends javax.swing.JFrame {
      */
     private BankManagerGUI parentWindow;
 
+    /**
+     * Initializing the ValidateCardGUI
+     */
     public ValidateCardGUI() {
         initComponents();
         setAppIcon();
     }
 
+    /**
+     *
+     * @param parentWindow setting the BankManagerGUI as the parentWindow to carry through same instance
+     */
     public ValidateCardGUI(BankManagerGUI parentWindow) {
         this.parentWindow = parentWindow;
         initComponents();
@@ -238,18 +245,27 @@ public class ValidateCardGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Back button to take you back to the main menu while passing through the same instance
+     */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         parentWindow.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    /**
+     * Button to run the validation check and returns whether number is valid or not
+     * Calls a method from the ValidateCardManager class to run the validation program with the entered number
+     */
     private void btnRunValidationTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunValidationTestActionPerformed
         // TODO add your handling code here:
         ValidateCardManager vc = new ValidateCardManager();
 
         String numToValidate = txfNumberToValidate.getText();
 
+        // if the validateCard method returns true the number is validS
+        // else the number is false
         if (vc.validateCard(numToValidate)) {
             txfValidationResult.setText("Number is valid.");
         } else {
@@ -292,6 +308,9 @@ public class ValidateCardGUI extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Sets the app icon in the taskbar and the title bar
+     */
     private void setAppIcon() {
         ImageIcon icon = new ImageIcon(getClass().getResource("/supercoolbankmanager/Assets/icon.png"));
         setIconImage(icon.getImage());

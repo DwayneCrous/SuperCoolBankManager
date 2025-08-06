@@ -20,6 +20,9 @@ public class TransactionsGUI extends javax.swing.JFrame {
     private MainManager mm = new MainManager();
     private BankManagerGUI parentWindow;
     
+    /**
+     * Initializing the TransactionsGUI
+     */
     public TransactionsGUI() {
         this.loginManager = new LoginManager2();
         initComponents();
@@ -27,6 +30,11 @@ public class TransactionsGUI extends javax.swing.JFrame {
         loadTransactionsIntoTable();
     }
     
+    /**
+     *
+     * @param lm getting the login managers instance to pass through the logged in users username
+     * @param parentWindow setting the BankManagerGUI as the parentWindow to carry through same instance
+     */
     public TransactionsGUI(LoginManager2 lm, BankManagerGUI parentWindow) {
         this.loginManager = lm;
         this.parentWindow = parentWindow;
@@ -211,6 +219,9 @@ public class TransactionsGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Button to go back to the main menu while passing through the same instance
+     */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -252,7 +263,11 @@ public class TransactionsGUI extends javax.swing.JFrame {
         });
     }
     
+    /*
+    * Loads all of the transactions into the table from the database
+    */
     private void loadTransactionsIntoTable() {
+        //creating the table model and setting the row count to 0
         DefaultTableModel model = (DefaultTableModel) tblADWD.getModel();
         model.setRowCount(0);
         
@@ -277,6 +292,9 @@ public class TransactionsGUI extends javax.swing.JFrame {
         }
     }
     
+    /*
+    * Sets the app icon in the taskbar and the title bar
+    */
     private void setAppIcon() {
         ImageIcon icon = new ImageIcon(getClass().getResource("/supercoolbankmanager/Assets/icon.png"));
         setIconImage(icon.getImage());

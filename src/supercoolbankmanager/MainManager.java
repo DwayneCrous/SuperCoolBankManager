@@ -11,6 +11,7 @@ public class MainManager {
     }
     
     //DayToDay Feature Methods
+    //display deposits from the day to day account
     public double[] displayDayToDayDeposits(String user) {
         int count = 0;
 
@@ -43,6 +44,7 @@ public class MainManager {
         return depositsArr;
     }
     
+    //display the withdrawals from the day to day account
     public double[] getDayToDayWithdrawels(String user) {
         int count = 0;
     
@@ -74,6 +76,7 @@ public class MainManager {
         return withdrawelsArr;
     }
     
+    //display the available balance of the day to day account
     public double[] displayDayToDayAvailableBal(String user) {
         int count = 0;
     
@@ -105,6 +108,7 @@ public class MainManager {
         return balanceArr;
     }
     
+    //display the transaction dates of the day to day account
     public String[] displayDayToDayDates(String user) {
         int count = 0;
     
@@ -138,6 +142,7 @@ public class MainManager {
     }
     
     //Savings Feature Methods
+    //display the deposits from the savings account
     public double[] displaySavingsDeposits(String user) {
         int count = 0;
 
@@ -170,6 +175,7 @@ public class MainManager {
         return depositsArr;
     }
     
+    //display the withdrawals from the savings account
     public double[] getSavingsWithdrawals(String user) {
         int count = 0;
     
@@ -201,6 +207,7 @@ public class MainManager {
         return withdrawelsArr;
     }
     
+    //display the available balance from the savings account
     public double[] displaySavingsAvailableBal(String user) {
         int count = 0;
     
@@ -232,6 +239,7 @@ public class MainManager {
         return balanceArr;
     }
     
+    //display the transaction dates from the savings account
     public String[] displaySavingsDates(String user) {
         int count = 0;
     
@@ -265,6 +273,7 @@ public class MainManager {
     }
     
     //Pay Recipient Feature Methods
+    //display the payments made from the pay recipient feature
     public double[] displayPayRecipientPayments(String user) {
         int count = 0;
 
@@ -297,6 +306,7 @@ public class MainManager {
         return paymentsArr;
     }
         
+    //display the transaction dates from the pay recipient feature
     public String[] displayPayRecipientDates(String user) {
         int count = 0;
     
@@ -330,38 +340,40 @@ public class MainManager {
     }
     
     //Message feature methods
+    //display all of the messages from the database
     public String[] displayMessages(String user) {
-    int count = 0;
+        int count = 0;
 
-        try {
-            ResultSet countRs = db.queryDB("SELECT COUNT(*) AS total FROM Messages WHERE UserName = '" + user + "'");
+            try {
+                ResultSet countRs = db.queryDB("SELECT COUNT(*) AS total FROM Messages WHERE UserName = '" + user + "'");
 
-            if (countRs.next()) {
-                count = countRs.getInt("total");
+                if (countRs.next()) {
+                    count = countRs.getInt("total");
+                }
+            } catch (SQLException e) {
+                System.out.println("Error: Cannot Execute Query!");
+                return new String[0];
             }
-        } catch (SQLException e) {
-            System.out.println("Error: Cannot Execute Query!");
-            return new String[0];
-        }
 
-        String[] messagesArr = new String[count];
-        int index = 0;
+            String[] messagesArr = new String[count];
+            int index = 0;
 
-        try {
-            ResultSet rs = db.queryDB("SELECT Message FROM Messages WHERE UserName = '" + user + "'");
+            try {
+                ResultSet rs = db.queryDB("SELECT Message FROM Messages WHERE UserName = '" + user + "'");
 
-            while (rs.next()) {
-                messagesArr[index] = rs.getString("Message");
-                index++;
+                while (rs.next()) {
+                    messagesArr[index] = rs.getString("Message");
+                    index++;
+                }
+            } catch (SQLException e) {
+                System.out.println("Error: Cannot Execute Query!");
+                return new String[0];
             }
-        } catch (SQLException e) {
-            System.out.println("Error: Cannot Execute Query!");
-            return new String[0];
-        }
 
-    return messagesArr;
-}
+        return messagesArr;
+    }
     
+    //display the dates that the messages were sent
     public String[] displayMessageDate(String user) {
         int count = 0;
     
@@ -394,8 +406,8 @@ public class MainManager {
         return datesArr;
     }
     
-    
     //Inserting Transactions into specified tables
+    //insert a transaction into a specified table
     public void insertTransaction(String table, String user, double deposit, double withdrawel) {
         double latestBalance = 0;
         
@@ -419,6 +431,7 @@ public class MainManager {
         }
     }
     
+    //insert a transaction into the RecipientTransactions table
     public void insertRecipientTransaction(String user, double payments) {
         double latestBalance = 0;
         
@@ -442,6 +455,7 @@ public class MainManager {
         }
     }
     
+    //insert a message into the Messages table
     public void insertMessage(String user, String message) {
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
